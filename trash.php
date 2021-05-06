@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trash</title>
+    <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
     .sidenav {
   height: 100%;
@@ -57,7 +58,7 @@
 
 
 <body bgColor="white">
-<link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 <div class="sidenav">
   <a href="notes.php">Home</a>
   <button id="button1" style="margin-left: 30px">Add New</button>
@@ -89,8 +90,6 @@
             <span><?php echo $row['status'] ?></span><br>
             
               <br>
-              <a class="" href="update.php ?id=<?php echo $row['trashId']; ?>"><button><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button</a>
-              <a href="deleteNotes.php?id=<?php echo $row['trashId']; ?>">
               <button id="<?php echo $row['trashId']; ?>" type="button" class="btn btn-outline-danger">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
@@ -98,9 +97,6 @@
                 </svg>
                   Delete
                 </button>
-                </a>
-                <a href="done.php?id=<?php echo $row['trashId']; ?>">
-                  <button style="font-size:15px"><i class="fa fa-check" aria-hidden="true"></i>Done</button>
                 </a>
             
         </form>

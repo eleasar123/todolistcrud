@@ -7,14 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Notes</title>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 
     <style>
         body{
@@ -57,7 +57,9 @@
   .sidenav a {font-size: 18px;}
 }
 .modal{
-            color:black;  
+            color:black;
+            border: solid 2px white; 
+            display:none; 
         }
         #button1{
           background-color: blue;
@@ -70,13 +72,12 @@
           color: white;
         }
 
-
+      
     </style>
 </head>
 
-
 <body bgColor="black">
-<link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 <div class="sidenav">
   <a href="notes.php">Home</a>
   <button id="button1" style="margin-left: 30px">Add New</button>
@@ -102,14 +103,18 @@
           
       ?>
 
-      <div class="card col-sm-4" style=" width:15rem;height:fit-content;font-size:20px; border-radius:10%;border:solid black 2px;color:black;padding: 10px">
+      <div class="card col-sm-4" style=" width:15rem;height:fit-content;font-size:20px; border-radius:10%;border:solid black 2px;color:black;padding:10px;color:white;border-radius: 10px;border:solid 2px white">
         <form method="POST">
             <h3><?php echo $row['Title'] ?></h3>
             <div class="container"><?php echo $row['Body'] ?></div>
             <span><?php echo $row['Status'] ?></span><br>
-            
+            <?php
+                // if($row['Status']=="Done"){
+                //   echo "<script></script>";
+                // }
+            ?>
               <br>
-              <a class="" href="update.php"><button><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button</a>
+              <button class="update"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button>
               <a href="deleteNotes.php?id=<?php echo $row['noteId']; ?>">
               <button id="<?php echo $row['noteId']; ?>" type="button" class="btn btn-outline-danger">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -134,6 +139,8 @@
           ?>
   </div>
 </div> 
+
+
 <div class="modal" id="note" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -149,7 +156,7 @@
             <form method="POST">
                 <h4 >Take down notes</h4>
                 <h5>Title:</h5>
-                <input type="text" name="title" placeholder="Enter title here"><br>
+                <input id="title" type="text" name="title" placeholder="Enter title here"><br>
                 <h5>Body:</h5>
                 <textarea id="noteBody" rows="4" cols="45" name="noteBody">
                 Enter text body here...</textarea>
@@ -169,6 +176,41 @@
     </div>
 </div>
 
+
+<div class="modal" id="note" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="width:80%; margin-left:auto; margin-right:auto; text-align:left;padding: 10px;">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Notes</h5>
+            <button type="button" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form method="POST">
+                <h4 >Take down notes</h4>
+                <h5>Title:</h5>
+                <input id="title" type="text" name="title" placeholder="Enter title here"><br>
+                <h5>Body:</h5>
+                <textarea id="noteBody" rows="4" cols="45" name="noteBody">
+                Enter text body here...</textarea>
+                <input id="body" name="body" type ="text" style="visibility:hidden;height:20px;width:20px;margin:0px" value="">
+                <h5>Status:</h5>
+                <input type="radio" id="done"  value="Done"><label>Done</label>
+                <input type="radio" id="not"  value="Not Done"><label>Not Done</label><br>
+                
+                <input id="status" name="status" type ="text" style="visibility:hidden;height:20px;width:20px;margin:0px" value="">
+                <input type="submit" name ="submit" value="Add Note"><br><br>
+            </form>    
+            </div> 
+            <div class="modal-footer">
+              <button  type="button" class="close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
  $(document).ready(function(){
     $('#noteBody').keyup(function(){
@@ -190,6 +232,25 @@
           $('#note').modal('hide');
 
         })
+    })
+
+    (".update").click(function(){
+      var title=$(this).siblings('h3').html();
+      var body=$(this).siblings('div.container').html();
+      var status=$(this).siblings('span').html();
+      var date_created=$(this).siblings('p').html();  
+
+      $('#note').modal({ backdrop: 'static', keyboard: false })
+      $('#note').modal('show');
+      $('#title').val(title);
+      $('#noteBody').val(body);
+      $('status').val(status);
+      $("date").val(date_created);
+      $(".close").click(() => {
+          $('#note').modal('hide');
+
+        })
+
     })
     
  })
