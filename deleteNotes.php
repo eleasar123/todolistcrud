@@ -13,7 +13,9 @@ $row=mysqli_fetch_array($result);
 $title=$row['Title'];
 $body=$row['Body']; 
 $status=$row['Status'];
-$sql3="insert into trash(title,body,status)values('".$title."', '".$body."', '".$status."')";
+date_default_timezone_set('Asia/Manila');
+$date=date("Y-m-d h:i:s");
+$sql3="insert into trash(title,body,status,date_deleted)values('".$title."', '".$body."', '".$status."','".$date."')";
 $sql2 = "DELETE FROM notes WHERE noteId = '".$noteId."'";
 if ($conn->query($sql) == TRUE) {
   if($conn->query($sql3) === TRUE){
